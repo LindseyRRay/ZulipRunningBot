@@ -2,14 +2,14 @@
 #Get Lat Lon of address of starting run location
 from requests import get
 import json 
-from config import GOOGLE_API_KEY, GOOGLE_API
+import os 
 import re
 
 class GoogleRequests:
 
 	def __init__(self):
-		self.GEOCODE_API = GOOGLE_API + "geocode/json?address="
-		self.API_KEY = GOOGLE_API_KEY
+		self.GEOCODE_API = os.environ['GOOGLE_API'] + "geocode/json?address="
+		self.API_KEY = os.environ['GOOGLE_API_KEY']
 
 
 	def create_addr_URL(self, starting_address):

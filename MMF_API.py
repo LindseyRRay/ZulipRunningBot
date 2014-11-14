@@ -1,8 +1,7 @@
 #nformation on parsing json and accessing API from https://www.mapmyapi.com/io-docs
 #If this line breaks need to change the json parsing for routes
-
-
-from config import MMF_API_KEY, MMF_BEARER_ACCESS, MMF_SECRET, MMF_URL
+import config
+import os
 ONE_MILE_IN_METERS = 1609
 from requests import get
 from operator import itemgetter
@@ -11,10 +10,10 @@ from operator import itemgetter
 class MMFRouteAPI:
 
 	def __init__(self):
-		self.ROUTE_URL = MMF_URL
-		self.MMF_API_KEY = MMF_API_KEY
-		self.MMF_SECRET = MMF_SECRET
-		self.MMF_BEARER_ACCESS = MMF_BEARER_ACCESS
+		self.ROUTE_URL = os.environ['MMF_URL']
+		self.MMF_API_KEY = os.environ['MMF_API_KEY']
+		self.MMF_SECRET = os.environ['MMF_SECRET']
+		self.MMF_BEARER_ACCESS = os.environ['MMF_BEARER_ACCESS']
 
 	def create_req_URL(self, start_lat, start_lon, max_dist, min_dist = 0):
 		max_dist_meters = max_dist * ONE_MILE_IN_METERS
@@ -24,8 +23,8 @@ class MMFRouteAPI:
 
 	def get_routes(self, start_lat, start_lon, max_dist, min_dist = 0):
 		start_URL = self.create_req_URL(start_lat, start_lon, max_dist, min_dist = 0)
-		resp = get(url = start_URL, verify = False, headers = {'Api-Key': MMF_API_KEY,
-			'Authorization': MMF_BEARER_ACCESS, 'Content-Type': 'application/json'})
+		resp = get(url = start_URL, verify = False, headers = {'Api-Key': self.MMF_API_KEY,
+			'Authorization': self.MMF_BEARER_ACCESS, 'Content-Type': 'application/json'})
 		return resp.json()
 
 
