@@ -32,6 +32,7 @@ class ZulipBot:
 	def read_message(self, msg):
 		content = msg['content'].split(',')
 		sender_email = msg['sender_email']
+		print "REading Message"
 
 		if sender == ZULIP_USERNAME:
 			return
@@ -49,7 +50,7 @@ class ZulipBot:
 	def find_runs(self, content):
 		#if no runs found, return custom message
 		#put this is funciton send message
-		
+		print "Finding Runs"
 		run_info = sorted(content[1:])
 		
 		if len(run_info) == 2:
@@ -60,6 +61,7 @@ class ZulipBot:
 		run_params = [r.split("=")[-1] for r in run_info]
 
 		#order should be address, max distance, min distance
+		print "google API call"
 		get_coords = GoogleRequests()
 		lat, lon = get_coords.get_geocode(run_params[0])
 
@@ -67,6 +69,7 @@ class ZulipBot:
 		print lon
 
 		new_req = MMFRouteAPI()
+		print "MMR API Call"
 		json_data = new_req.get_routes(lat, lon, run_params[1], run_params[2])
 		
 		if len(json_data) < 1:
@@ -77,6 +80,7 @@ class ZulipBot:
 
 
 	def send_message(self, return_content, msg):
+		print "sending message"
 		links = ["Run Name: ", return_content[0], "Distance (miles): ", return_content[1], "Link:", return_content[-1]]
 		return_str = " ".join(links)
 		if msg['type'] == 'stream':
