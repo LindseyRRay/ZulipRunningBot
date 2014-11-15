@@ -38,7 +38,7 @@ class ZulipBot:
 
 		if sender_email == os.environ['ZULIP_USERNAME']:
 			return
-
+		print content[0]
 		if content[0].upper() in ['RUNNING', 'RUNNNINGBOT', '@**RUNNING**']:
 			return_info = self.find_runs(content)
 			if return_info is None:
