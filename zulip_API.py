@@ -2,7 +2,7 @@
  
 from Google_API import GoogleRequests
 from MMF_API import MMFRouteAPI
-import config
+#import config
 from requests import get 
 from zulip import Client
 import os
