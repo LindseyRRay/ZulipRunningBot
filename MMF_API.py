@@ -1,10 +1,8 @@
 #nformation on parsing json and accessing API from https://www.mapmyapi.com/io-docs
 #If this line breaks need to change the json parsing for routes
-import config
 import os
 ONE_MILE_IN_METERS = 1609
 from requests import get
-from operator import itemgetter
 
  
 class MMFRouteAPI:

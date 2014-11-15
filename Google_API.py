@@ -3,7 +3,6 @@
 from requests import get
 import json 
 import os 
-import re
 
 class GoogleRequests:
 
