@@ -1,1 +1,1 @@
-worker: python Zulip_API.py
+worker: python zulip_API.py
