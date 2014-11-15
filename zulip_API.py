@@ -14,9 +14,11 @@ class ZulipBot:
 	def __init__(self):
 		self.client = Client(email = os.environ['ZULIP_USERNAME'], api_key = os.environ['ZULIP_API_KEY'])
 		self.subscribe_streams()
+		print "Starting"
 
 
 	def subscribe_streams(self):
+		print "Subscribing Streams"
 		response = get('https://api.zulip.com/v1/streams', auth=(os.environ['ZULIP_USERNAME'], os.environ['ZULIP_API_KEY']))
 		
 		if response.status_code == 200:
