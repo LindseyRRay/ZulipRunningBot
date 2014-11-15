@@ -34,9 +34,9 @@ class ZulipBot:
 	def read_message(self, msg):
 		content = msg['content'].split(',')
 		sender_email = msg['sender_email']
-		print "REading Message"
+		print "Reading Message"
 
-		if sender == ZULIP_USERNAME:
+		if sender_email == os.environ['ZULIP_USERNAME']:
 			return
 
 		if content[0].upper() in ['RUNNING', 'RUNNNINGBOT', '@**RUNNING**']:
