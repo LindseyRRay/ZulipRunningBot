@@ -16,8 +16,12 @@ class MMFRouteAPI:
 		self.MMF_BEARER_ACCESS = os.environ['MMF_BEARER_ACCESS']
 
 	def create_req_URL(self, start_lat, start_lon, max_dist, min_dist = 0):
-		max_dist_meters = max_dist * ONE_MILE_IN_METERS
-		min_dist_meters = min_dist * ONE_MILE_IN_METERS
+		max_dist_meters = int(max_dist) * ONE_MILE_IN_METERS
+		min_dist_meters = int(min_dist) * ONE_MILE_IN_METERS
+		print str(start_lon)
+		print str(start_lat)
+		print max_dist_meters
+		print min_dist_meters
 		end_URL=self.ROUTE_URL+str(start_lat)+'%2C'+str(start_lon)+'&maximum_distance='+str(int(max_dist_meters))+'&minimum_distance='+str(int(min_dist_meters))
 		return end_URL
 
@@ -34,7 +38,7 @@ class MMFRouteAPI:
 		return list_runs
 
 	def list_runs(self, json_resonse):
-		return [(tup[0].upper(), round(tup[1]/ONE_MILE_IN_METERS, 2), 'http://www.mapmyrun.com/routes/view/'+str(tup[2])) for tup in self.parse_routes(json_resonse)]
+		return [(tup[0].upper(), str(round(tup[1]/ONE_MILE_IN_METERS, 2)), 'http://www.mapmyrun.com/routes/view/'+str(tup[2])) for tup in self.parse_routes(json_resonse)]
 
 
 if __name__ == '__main__':

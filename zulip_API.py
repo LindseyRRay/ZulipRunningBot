@@ -39,12 +39,13 @@ class ZulipBot:
 		if sender_email == os.environ['ZULIP_USERNAME']:
 			return
 		print content[0]
-		if content[0].upper() in ['RUNNING', 'RUNNNINGBOT', '@**RUNNING**']:
+		if content[0].upper() in ['RUNNING', 'RUNNINGBOT', '@**RUNNING**']:
 			return_info = self.find_runs(content)
 			if return_info is None:
 				self.send_message("No results", msg)
 			else:
-				[self.sendmessage(run, msg) for run in return_info]
+				print return_info
+				[self.send_message(run, msg) for run in return_info]
 		else:
 			return 
 
@@ -73,11 +74,12 @@ class ZulipBot:
 		new_req = MMFRouteAPI()
 		print "MMR API Call"
 		json_data = new_req.get_routes(lat, lon, run_params[1], run_params[2])
+		list_runs = new_req.list_runs(json_data)
 		
-		if len(json_data) < 1:
+		if len(list_runs) < 1:
 			return None
 
-		return json_data
+		return list_runs
 
 
 
@@ -88,7 +90,7 @@ class ZulipBot:
 		if msg['type'] == 'stream':
 			self.client.send_message({
                 'type': 'stream',
-                'subject': 'RUNNNINGBOT',
+                'subject': 'RUNNINGBOT',
                 'to': msg['display_recipient'],
                 'content': return_str})
             
